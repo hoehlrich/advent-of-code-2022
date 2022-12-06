@@ -59,16 +59,16 @@ fn main() -> Result<(), Box<dyn error::Error>> {
         let to = tokens[5].parse::<usize>()?;
 
         let mut pops = vec![];
-        for _ in 0..n {
-            pt_two.entry(from).and_modify(|e| {
+        pt_two.entry(from).and_modify(|e| {
+            for _ in 0..n {
                 pops.push(e.pop().unwrap());
-            });
-        }
-        for _ in 0..n {
-            pt_two
-                .entry(to)
-                .and_modify(|ee| ee.push(pops.pop().unwrap()));
-        }
+            }
+        });
+        pt_two.entry(to).and_modify(|ee| {
+            for _ in 0..n {
+                ee.push(pops.pop().unwrap())
+            }
+        });
     }
 
     for k in pt_two.keys() {
